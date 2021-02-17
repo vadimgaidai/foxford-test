@@ -1,7 +1,9 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { ThemeProvider, CssBaseline } from '@material-ui/core'
 
+import materialUiTheme from './theme'
 import store from './redux/store'
 
 import App from './pages/App'
@@ -11,11 +13,14 @@ import reportWebVitals from './reportWebVitals'
 import './index.css'
 
 ReactDOM.render(
-  <Provider store={store}>
-    <StrictMode>
-      <App />
-    </StrictMode>
-  </Provider>,
+  <ThemeProvider theme={materialUiTheme}>
+    <CssBaseline />
+    <Provider store={store}>
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </Provider>
+  </ThemeProvider>,
   document.getElementById('root')
 )
 
