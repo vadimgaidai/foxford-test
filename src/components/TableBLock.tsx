@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'react'
 import {
+  makeStyles,
+  createStyles,
+  Theme,
   Paper,
   Checkbox,
   Box,
@@ -28,6 +31,19 @@ interface TableProps {
   onSelectAll(event: React.ChangeEvent<HTMLInputElement>): void
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    tableRow: {
+      '&.Mui-selected, &.Mui-selected:hover': {
+        backgroundColor: theme.palette.secondary.main,
+        '& > .MuiTableCell-root': {
+          color: 'white',
+        },
+      },
+    },
+  })
+)
+
 const TableBlock: FC<TableProps> = ({
   columns,
   rows,
@@ -35,59 +51,70 @@ const TableBlock: FC<TableProps> = ({
   children,
   onSelect,
   onSelectAll,
-}: TableProps) => (
-  <Paper variant="outlined">
-    <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell padding="checkbox">
-              <Checkbox
-                color="primary"
-                indeterminate={
-                  selectedRows.length > 0 && selectedRows.length < rows.length
-                }
-                checked={rows.length > 0 && selectedRows.length === rows.length}
-                onChange={onSelectAll}
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
-              />
-            </TableCell>
-            {columns.map((column) => (
-              <TableCell
-                key={column.id}
-                align={column.align}
-                style={{ minWidth: column.minWidth }}
-              >
-                {column.label}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row: any) => (
-            <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+}: TableProps) => {
+  const classes = useStyles()
+  return (
+    <Paper variant="outlined">
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
               <TableCell padding="checkbox">
                 <Checkbox
                   color="primary"
-                  checked={selectedRows.indexOf(row) !== -1}
-                  onChange={(event) => onSelect(event, row)}
-                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  indeterminate={
+                    selectedRows.length > 0 && selectedRows.length < rows.length
+                  }
+                  checked={
+                    rows.length > 0 && selectedRows.length === rows.length
+                  }
+                  onChange={onSelectAll}
+                  inputProps={{ 'aria-label': 'select all desserts' }}
                 />
               </TableCell>
               {columns.map((column) => (
-                <TableCell key={column.id} align={column.align}>
-                  {row[column.id]}
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
                 </TableCell>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    <Box component="div" m={1}>
-      {children}
-    </Box>
-  </Paper>
-)
+          </TableHead>
+          <TableBody>
+            {rows.map((row: any) => (
+              <TableRow
+                key={row.id}
+                hover
+                tabIndex={-1}
+                selected={selectedRows.indexOf(row) !== -1}
+                classes={{ selected: classes.tableRow }}
+              >
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    color="primary"
+                    checked={selectedRows.indexOf(row) !== -1}
+                    onChange={(event) => onSelect(event, row)}
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </TableCell>
+                {columns.map((column) => (
+                  <TableCell key={column.id} align={column.align}>
+                    {row[column.id]}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Box component="div" m={1}>
+        {children}
+      </Box>
+    </Paper>
+  )
+}
 
 export default TableBlock
