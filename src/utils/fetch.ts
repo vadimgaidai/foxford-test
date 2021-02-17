@@ -32,7 +32,7 @@ export async function request({
 
   return response?.ok
     ? {
-        payload: { ...data },
+        payload: data,
         status: response.status,
       }
     : Promise.reject(response)
