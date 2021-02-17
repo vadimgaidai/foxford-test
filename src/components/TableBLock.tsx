@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'react'
-// import { makeStyles } from '@material-ui/core/styles'
 import {
   Paper,
   Checkbox,
+  Box,
   Table,
   TableContainer,
   TableHead,
   TableBody,
   TableRow,
   TableCell,
-  TableFooter,
 } from '@material-ui/core'
 
 interface Column {
@@ -18,32 +17,41 @@ interface Column {
   label: string
   minWidth?: number
   align?: 'right'
-  format?: (value: number) => string
 }
 
 interface TableProps {
   columns: Column[]
   rows: any
-  isCheckbox?: boolean
+  selectedRows: Array<any>
   children?: React.ReactNode
+  onSelect(event: React.ChangeEvent<HTMLInputElement>, row: any): void
+  onSelectAll(event: React.ChangeEvent<HTMLInputElement>): void
 }
 
 const TableBlock: FC<TableProps> = ({
   columns,
   rows,
-  isCheckbox = false,
+  selectedRows = [],
   children,
+  onSelect,
+  onSelectAll,
 }: TableProps) => (
   <Paper variant="outlined">
     <TableContainer>
       <Table>
         <TableHead>
           <TableRow>
-            {isCheckbox && (
-              <TableCell padding="checkbox">
-                <Checkbox inputProps={{ 'aria-labelledby': 'checkbox' }} />
-              </TableCell>
-            )}
+            <TableCell padding="checkbox">
+              <Checkbox
+                color="primary"
+                indeterminate={
+                  selectedRows.length > 0 && selectedRows.length < rows.length
+                }
+                checked={rows.length > 0 && selectedRows.length === rows.length}
+                onChange={onSelectAll}
+                inputProps={{ 'aria-label': 'secondary checkbox' }}
+              />
+            </TableCell>
             {columns.map((column) => (
               <TableCell
                 key={column.id}
@@ -58,11 +66,14 @@ const TableBlock: FC<TableProps> = ({
         <TableBody>
           {rows.map((row: any) => (
             <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-              {isCheckbox && (
-                <TableCell padding="checkbox">
-                  <Checkbox inputProps={{ 'aria-labelledby': 'checkbox' }} />
-                </TableCell>
-              )}
+              <TableCell padding="checkbox">
+                <Checkbox
+                  color="primary"
+                  checked={selectedRows.indexOf(row) !== -1}
+                  onChange={(event) => onSelect(event, row)}
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                />
+              </TableCell>
               {columns.map((column) => (
                 <TableCell key={column.id} align={column.align}>
                   {row[column.id]}
@@ -71,15 +82,11 @@ const TableBlock: FC<TableProps> = ({
             </TableRow>
           ))}
         </TableBody>
-        {children && (
-          <TableFooter>
-            <TableRow>
-              <TableCell>{children}</TableCell>
-            </TableRow>
-          </TableFooter>
-        )}
       </Table>
     </TableContainer>
+    <Box component="div" m={1}>
+      {children}
+    </Box>
   </Paper>
 )
 
