@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Grid, Box } from '@material-ui/core'
+import { makeStyles, createStyles, Grid, Box } from '@material-ui/core'
 
 import { selectUsers } from '../redux/users/selectors'
 import { UsersActionsType, UserType } from '../redux/users/types'
@@ -17,7 +17,22 @@ const columns = [
   { id: 'age', label: 'Age' },
 ]
 
+const useStyles = makeStyles(() =>
+  createStyles({
+    content: {
+      height: '100%',
+      width: '100%',
+    },
+    grid: {
+      height: '100%',
+      width: '100%',
+      padding: '30px',
+    },
+  })
+)
+
 const App: FC = () => {
+  const classes = useStyles()
   const dispatch = useDispatch()
   const users = useSelector(selectUsers)
 
@@ -51,7 +66,13 @@ const App: FC = () => {
   }
 
   return (
-    <div>
+    <Grid
+      className={classes.grid}
+      container
+      direction="row"
+      alignItems="center"
+      justify="center"
+    >
       <TableBLock
         columns={columns}
         rows={users}
@@ -76,7 +97,7 @@ const App: FC = () => {
           )}
         </Grid>
       </TableBLock>
-    </div>
+    </Grid>
   )
 }
 

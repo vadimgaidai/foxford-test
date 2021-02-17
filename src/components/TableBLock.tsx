@@ -33,6 +33,10 @@ interface TableProps {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    content: {
+      width: '100%',
+      maxWidth: 800,
+    },
     tableRow: {
       '&.Mui-selected, &.Mui-selected:hover': {
         backgroundColor: theme.palette.secondary.main,
@@ -54,7 +58,7 @@ const TableBlock: FC<TableProps> = ({
 }: TableProps) => {
   const classes = useStyles()
   return (
-    <Paper variant="outlined">
+    <Paper variant="outlined" className={classes.content}>
       <TableContainer>
         <Table>
           <TableHead>
