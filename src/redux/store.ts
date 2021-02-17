@@ -1,11 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
 
+import users from './users'
 import sagas from './sagas'
 
 const sagaMiddleware = createSagaMiddleware()
 
-const reducer = combineReducers({})
+const reducer = combineReducers({ users })
 
 const store = configureStore({
   reducer,

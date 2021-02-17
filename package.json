@@ -8,8 +8,10 @@
     "lint": "eslint . --ext js,jsx,ts,tsx",
     "lint:fix": "eslint . --ext js,jsx,ts,tsx --fix",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "json-server --watch public/db.json --port 3002"
   },
+  "proxy": "http://localhost:3002",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@reduxjs/toolkit": "^1.5.0",

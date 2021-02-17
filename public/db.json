@@ -1,0 +1,64 @@
+{
+  "users": [
+    {
+      "id": "602cfd8af3233c7ab2ccb690",
+      "firstName": "Elizabeth",
+      "surname": "Mckay",
+      "age": 37
+    },
+    {
+      "id": "602cfd8aaf5aa584e44a32ea",
+      "firstName": "Ola",
+      "surname": "Marks",
+      "age": 57
+    },
+    {
+      "id": "602cfd8a1712ec112889b769",
+      "firstName": "Dennis",
+      "surname": "Soto",
+      "age": 41
+    },
+    {
+      "id": "602cfd8a3251053fce6e6239",
+      "firstName": "Navarro",
+      "surname": "Yates",
+      "age": 68
+    },
+    {
+      "id": "602cfd8ac1ebf6ff951a0e4f",
+      "firstName": "Mejia",
+      "surname": "Buck",
+      "age": 66
+    },
+    {
+      "id": "602cfd8a0d55a73057d02120",
+      "firstName": "Claudia",
+      "surname": "Clarke",
+      "age": 34
+    },
+    {
+      "id": "602cfd8a17377ee20db29207",
+      "firstName": "Patrick",
+      "surname": "Hopkins",
+      "age": 37
+    },
+    {
+      "id": "602cfd8ae69b4f6b507b783d",
+      "firstName": "Scott",
+      "surname": "Durham",
+      "age": 38
+    },
+    {
+      "id": "602cfd8a2d34613509f92208",
+      "firstName": "Mara",
+      "surname": "Fitzpatrick",
+      "age": 45
+    },
+    {
+      "id": "602cfd8aba650eea139c6b23",
+      "firstName": "Chandler",
+      "surname": "Mercer",
+      "age": 22
+    }
+  ]
+}
