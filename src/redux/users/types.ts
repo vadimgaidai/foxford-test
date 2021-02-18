@@ -7,7 +7,6 @@ export enum UsersActionsType {
 /* eslint-disable camelcase */
 export interface UserType {
   id: number
-  email: string
   firstName: string
   surname: string
   age: number

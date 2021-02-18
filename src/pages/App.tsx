@@ -60,7 +60,7 @@ const App: FC = () => {
   const onSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelected(
       (): State => ({
-        rows: event.target.checked ? users.map((item) => item) : [],
+        rows: event.target.checked ? [...users] : [],
       })
     )
   }
@@ -92,7 +92,7 @@ const App: FC = () => {
             ))
           ) : (
             <Box component="p" m={1}>
-              Select users
+              Select user
             </Box>
           )}
         </Grid>

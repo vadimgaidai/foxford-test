@@ -33,6 +33,13 @@ interface TableProps {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      maxHeight: 500,
+      minHeight: 500,
+    },
+    table: {
+      height: '100%',
+    },
     content: {
       width: '100%',
       maxWidth: 800,
@@ -43,6 +50,11 @@ const useStyles = makeStyles((theme: Theme) =>
         '& > .MuiTableCell-root': {
           color: 'white',
         },
+      },
+    },
+    tableCell: {
+      '&.MuiTableCell-stickyHeader': {
+        backgroundColor: theme.palette.secondary.main,
       },
     },
   })
@@ -59,11 +71,11 @@ const TableBlock: FC<TableProps> = ({
   const classes = useStyles()
   return (
     <Paper variant="outlined" className={classes.content}>
-      <TableContainer>
-        <Table>
+      <TableContainer className={classes.container}>
+        <Table className={classes.table} stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
+              <TableCell className={classes.tableCell} padding="checkbox">
                 <Checkbox
                   color="primary"
                   indeterminate={
@@ -80,6 +92,7 @@ const TableBlock: FC<TableProps> = ({
                 <TableCell
                   key={column.id}
                   align={column.align}
+                  className={classes.tableCell}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
